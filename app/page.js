@@ -25,14 +25,15 @@ export default function Home() {
           </p>
           <div className='flex gap-3 justify-center'>
               <Link href='/shorten'><button className='bg-purple-500 rounded-xl font-bold p-3 shadow-xl py-1'>Try Now</button></Link>
-              <Link href='/'><button className='bg-purple-500 rounded-xl font-bold p-3 shadow-xl py-1'>Github</button></Link>
+              <Link href='/github'><button className='bg-purple-500 rounded-xl font-bold p-3 shadow-xl py-1'>Github</button></Link>
             </div>
 
         </div>
         <div className="bg-red-300 flex justify-start relative">
           <Image
             src="/vector.jpg"
-            fill
+            fill 
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             alt="Vector image"
           />
         </div>

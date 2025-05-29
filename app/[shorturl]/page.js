@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { redirect } from 'next/navigation';
 import clientPromise from '@/lib/mongodb';
  
@@ -8,7 +7,7 @@ export default async function Page({params}) {
 
     const client = await clientPromise;
     const db = client.db("Linkly");
-    const collection = db.collection("Url")
+    const collection = db.collection("url")
 
     const doc = await collection.findOne({shorturl:shorturl});
     if(doc){
@@ -18,5 +17,5 @@ export default async function Page({params}) {
         redirect(`${process.env.NEXT_PUBLIC_HOST}`)
     }
   
-  return <div>My Post: {shorturl}</div>
+  return <div>My Post: {url}</div>
 }
