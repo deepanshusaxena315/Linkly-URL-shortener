@@ -6,7 +6,7 @@ import Link from 'next/link'
 const Shorten = () => {
     const [url, seturl] = useState("")
     const [shorturl, setshorturl] = useState("")
-    const [generated, setGenerated] = useState("")
+    const [generatedLinks, setGeneratedLinks] = useState([])
 
     const generate = (params) => {
       const myHeaders = new Headers();
@@ -27,7 +27,7 @@ const Shorten = () => {
       fetch("/api/generate", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          setGenerated(`${process.env.NEXT_PUBLIC_HOST}/${result.shorturl || shorturl}`)
+          setGeneratedLinks(prev => [...prev, `${process.env.NEXT_PUBLIC_HOST}/${result.shorturl || shorturl}`])
           seturl("")   
           setshorturl("")
           console.log(result)
@@ -53,10 +53,16 @@ const Shorten = () => {
         
         <button onClick={generate} className='bg-purple-500 rounded-xl font-bold p-3 shadow-xl py-1'>Generate</button>
       </div>
-      {generated && <>
-        <span className='font-bold text-lg'>Your Link </span> <Link target= "_blank" href={generated}>{generated}</Link>
-      </>
-      }
+      {generatedLinks.length > 0 && (
+        <div>
+          <span className='font-bold text-lg'>Your Links</span>
+          <ul>
+            {generatedLinks.map((link, index) => (
+              <li key={index}><Link target="_blank" href={link}>{link}</Link></li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
